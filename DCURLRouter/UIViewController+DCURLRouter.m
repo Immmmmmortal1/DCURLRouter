@@ -18,45 +18,32 @@ static char dataCallBack;
 @implementation UIViewController (DCURLRouter)
 
 
-- (void)setOriginUrl:(NSURL *)originUrl {
+- (void)setDcoriginUrl:(NSURL *)dcoriginUrl {
     // 为分类设置属性值
     objc_setAssociatedObject(self, &URLoriginUrl,
                              dcoriginUrl,
                              OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-
 - (NSURL *)dcoriginUrl {
     // 获取分类的属性值
     return objc_getAssociatedObject(self, &URLoriginUrl);
 }
 
-- (void)setValueBlock:(void (^)(id _Nonnull))valueBlock {
-    objc_setAssociatedObject(self, &dataCallBack,
-                             valueBlock,
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (void (^)(id _Nonnull))valueBlock {
-    return objc_getAssociatedObject(self, &dataCallBack);
-}
-
 - (NSString *)dcpath {
     return objc_getAssociatedObject(self, &URLpath);
 }
-
-- (void)setPath:(NSURL *)path{
+-(void)setDcpath:(NSString *)dcpath {
     objc_setAssociatedObject(self, &URLpath,
-                             path,
+                             dcpath,
                              OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-
-- (NSDictionary *)params {
+- (NSDictionary *)dcparams {
     return objc_getAssociatedObject(self, &URLparams);
-}
 
-- (void)setParams:(NSDictionary *)params{
+}
+- (void)setDcparams:(NSDictionary *)dcparams {
     objc_setAssociatedObject(self, &URLparams,
-                             params,
+                             dcparams,
                              OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
@@ -75,12 +62,12 @@ static char dataCallBack;
 }
 
 - (void)open:(NSURL *)url withQuery:(NSDictionary *)query{
-    self.path = [url path];
-    self.originUrl = url;
+    self.dcpath = [url path];
+    self.dcoriginUrl = url;
     if (query) {   // 如果自定义url后面有拼接参数,而且又通过query传入了参数,那么优先query传入了参数
-        self.params = query;
+        self.dcparams = query;
     }else {
-        self.params = [self paramsURL:url];
+        self.dcparams = [self paramsURL:url];
     }
 }
 
@@ -117,7 +104,7 @@ static char dataCallBack;
         // 处理网络地址的情况
         if ([url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"https"]) {
             class =  NSClassFromString([configDict objectForKey:url.scheme]);
-            VC.params = @{@"urlStr": [url absoluteString]};
+            VC.dcparams = @{@"urlStr": [url absoluteString]};
         }
     }
     return VC;
@@ -148,5 +135,8 @@ static char dataCallBack;
     
     return [NSDictionary dictionaryWithDictionary:pairs];
 }
+
+
+
 
 @end
