@@ -21,11 +21,11 @@ static char dataCallBack;
 - (void)setOriginUrl:(NSURL *)originUrl {
     // 为分类设置属性值
     objc_setAssociatedObject(self, &URLoriginUrl,
-                             originUrl,
+                             dcoriginUrl,
                              OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (NSURL *)originUrl {
+- (NSURL *)dcoriginUrl {
     // 获取分类的属性值
     return objc_getAssociatedObject(self, &URLoriginUrl);
 }
@@ -40,7 +40,7 @@ static char dataCallBack;
     return objc_getAssociatedObject(self, &dataCallBack);
 }
 
-- (NSString *)path {
+- (NSString *)dcpath {
     return objc_getAssociatedObject(self, &URLpath);
 }
 
