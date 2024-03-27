@@ -12,13 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIViewController (DCURLRouter)
 
 /** 跳转后控制器能拿到的url */
-@property(nonatomic, strong) NSURL *originUrl;
+@property(nonatomic, strong) NSURL *dcoriginUrl;
 
 /** url路径 */
-@property(nonatomic,copy) NSString *path;
+@property(nonatomic,copy) NSString *dcpath;
 
 /** 跳转后控制器能拿到的参数 */
-@property(nonatomic,strong) NSDictionary *params;
+@property(nonatomic,strong) NSDictionary *dcparams;
 
 /** 回调block */
 @property (nonatomic, strong) void(^valueBlock)(id value);
